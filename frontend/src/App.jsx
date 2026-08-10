@@ -2,6 +2,7 @@ import "./App.css";
 
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
+import CustomerDetails from "./pages/CustomerDetails";
 import Navbar from "./components/Navbar";
 import Sidebar from "./components/Sidebar";
 
@@ -27,30 +28,24 @@ function App() {
     <BrowserRouter>
       <Routes>
 
-        {/* Login */}
-        <Route path="/" element={<Login />} />
+  <Route path="/login" element={<Login />} />
 
-        {/* Dashboard */}
-        <Route
-          path="/dashboard"
-          element={
-            <DashboardLayout>
-              <Dashboard />
-            </DashboardLayout>
-          }
-        />
+  <Route
+    path="/dashboard"
+    element={<DashboardLayout />}
+  />
 
-        {/* Customers */}
-        <Route
-          path="/customers"
-          element={
-            <DashboardLayout>
-              <Customers />
-            </DashboardLayout>
-          }
-        />
+  <Route
+    path="/customers"
+    element={<Customers />}
+  />
 
-      </Routes>
+  <Route
+    path="/customers/:id"
+    element={<CustomerDetails />}
+  />
+
+</Routes>
     </BrowserRouter>
   );
 }

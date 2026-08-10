@@ -1,38 +1,49 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+
+const defaultCustomers = [
+  {
+    id: 1,
+    name: "Rahul Traders",
+    businessName: "Rahul Enterprises",
+    mobile: "9876543210",
+    email: "rahul@example.com",
+    gstNumber: "29ABCDE1234F1Z5",
+    customerType: "Wholesale",
+    address: "Bangalore, Karnataka",
+    status: "Active",
+    followUpDate: "2026-08-15",
+    notes: "Regular customer",
+    followUps: [],
+  },
+  {
+    id: 2,
+    name: "ABC Stores",
+    businessName: "ABC Retail",
+    mobile: "9123456789",
+    email: "abc@example.com",
+    gstNumber: "29XYZAB5678C1Z2",
+    customerType: "Retail",
+    address: "Bangalore, Karnataka",
+    status: "Lead",
+    followUpDate: "2026-08-18",
+    notes: "New lead",
+    followUps: [],
+  },
+];
 
 function Customers() {
-  const [showForm, setShowForm] = useState(false);
-  const [selectedCustomer, setSelectedCustomer] = useState(null);
-  const [searchTerm, setSearchTerm] = useState("");
+  const [customers, setCustomers] = useState(() => {
+    const savedCustomers = localStorage.getItem("customers");
 
-  const [customers, setCustomers] = useState([
-    {
-      id: 1,
-      name: "Rahul Traders",
-      businessName: "Rahul Enterprises",
-      mobile: "9876543210",
-      email: "rahul@example.com",
-      gstNumber: "29ABCDE1234F1Z5",
-      customerType: "Wholesale",
-      address: "Bangalore, Karnataka",
-      status: "Active",
-      followUpDate: "2026-08-15",
-      notes: "Regular customer",
-    },
-    {
-      id: 2,
-      name: "ABC Stores",
-      businessName: "ABC Retail",
-      mobile: "9123456789",
-      email: "abc@example.com",
-      gstNumber: "29XYZAB5678C1Z2",
-      customerType: "Retail",
-      address: "Bangalore, Karnataka",
-      status: "Lead",
-      followUpDate: "2026-08-18",
-      notes: "New lead",
-    },
-  ]);
+    return savedCustomers
+      ? JSON.parse(savedCustomers)
+      : defaultCustomers;
+  });
+
+  const [showForm, setShowForm] = useState(false);
+  const [editingCustomerId, setEditingCustomerId] = useState(null);
+  const [searchTerm, setSearchTerm] = useState("");
 
   const [formData, setFormData] = useState({
     name: "",
@@ -47,7 +58,13 @@ function Customers() {
     notes: "",
   });
 
-  // Handle form input changes
+  useEffect(() => {
+    localStorage.setItem(
+      "customers",
+      JSON.stringify(customers)
+    );
+  }, [customers]);
+
   const handleChange = (e) => {
     setFormData({
       ...formData,
@@ -55,22 +72,7 @@ function Customers() {
     });
   };
 
-  // Add customer
-  const handleSubmit = (e) => {
-    e.preventDefault();
-
-    const newCustomer = {
-      id: Date.now(),
-      ...formData,
-    };
-
-    setCustomers((currentCustomers) => [
-      ...currentCustomers,
-      newCustomer,
-    ]);
-
-    setShowForm(false);
-
+  const resetForm = () => {
     setFormData({
       name: "",
       mobile: "",
@@ -83,9 +85,64 @@ function Customers() {
       followUpDate: "",
       notes: "",
     });
+
+    setEditingCustomerId(null);
+    setShowForm(false);
   };
 
-  // Search customers
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    if (editingCustomerId) {
+      setCustomers((currentCustomers) =>
+        currentCustomers.map((customer) =>
+          customer.id === editingCustomerId
+            ? {
+                ...customer,
+                ...formData,
+              }
+            : customer
+        )
+      );
+
+      alert("Customer updated successfully!");
+    } else {
+      const newCustomer = {
+        id: Date.now(),
+        ...formData,
+        followUps: [],
+      };
+
+      setCustomers((currentCustomers) => [
+        ...currentCustomers,
+        newCustomer,
+      ]);
+
+      alert("Customer added successfully!");
+    }
+
+    resetForm();
+  };
+
+  const handleEdit = (customer) => {
+    setEditingCustomerId(customer.id);
+
+    setFormData({
+      name: customer.name || "",
+      mobile: customer.mobile || "",
+      email: customer.email || "",
+      businessName: customer.businessName || "",
+      gstNumber: customer.gstNumber || "",
+      customerType: customer.customerType || "Retail",
+      address: customer.address || "",
+      status: customer.status || "Active",
+      followUpDate: customer.followUpDate || "",
+      notes: customer.notes || "",
+    });
+
+    setShowForm(true);
+  };
+
   const filteredCustomers = customers.filter((customer) => {
     const search = searchTerm.toLowerCase();
 
@@ -101,12 +158,11 @@ function Customers() {
   return (
     <div className="page-container">
 
-      {/* ================= HEADER ================= */}
-
+      {/* Header */}
       <div className="page-header">
-
         <div>
           <h1>Customers</h1>
+
           <p>
             Manage your customers and CRM follow-ups
           </p>
@@ -115,156 +171,62 @@ function Customers() {
         <button
           className="primary-button"
           onClick={() => {
-            setSelectedCustomer(null);
+            setEditingCustomerId(null);
+
+            setFormData({
+              name: "",
+              mobile: "",
+              email: "",
+              businessName: "",
+              gstNumber: "",
+              customerType: "Retail",
+              address: "",
+              status: "Active",
+              followUpDate: "",
+              notes: "",
+            });
+
             setShowForm(true);
           }}
         >
           + Add Customer
         </button>
-
       </div>
 
-      {/* ================= CUSTOMER DETAILS ================= */}
+      {/* Add / Edit Form */}
+      {showForm ? (
+        <div className="form-container">
 
-      {selectedCustomer && (
-        <div className="details-container">
-
-          <div className="details-header">
-
+          <div className="form-header">
             <div>
-              <h2>Customer Details</h2>
+              <h2>
+                {editingCustomerId
+                  ? "Edit Customer"
+                  : "Add Customer"}
+              </h2>
 
               <p>
-                View customer information and follow-up notes
+                {editingCustomerId
+                  ? "Update customer information"
+                  : "Enter customer information"}
               </p>
             </div>
 
             <button
               type="button"
               className="close-button"
-              onClick={() => setSelectedCustomer(null)}
+              onClick={resetForm}
             >
               ✕
             </button>
-
-          </div>
-
-          <div className="details-grid">
-
-            <div className="detail-item">
-              <span>Customer Name</span>
-              <strong>
-                {selectedCustomer.name}
-              </strong>
-            </div>
-
-            <div className="detail-item">
-              <span>Business Name</span>
-              <strong>
-                {selectedCustomer.businessName || "Not provided"}
-              </strong>
-            </div>
-
-            <div className="detail-item">
-              <span>Mobile</span>
-              <strong>
-                {selectedCustomer.mobile}
-              </strong>
-            </div>
-
-            <div className="detail-item">
-              <span>Email</span>
-              <strong>
-                {selectedCustomer.email || "Not provided"}
-              </strong>
-            </div>
-
-            <div className="detail-item">
-              <span>GST Number</span>
-              <strong>
-                {selectedCustomer.gstNumber || "Not provided"}
-              </strong>
-            </div>
-
-            <div className="detail-item">
-              <span>Customer Type</span>
-              <strong>
-                {selectedCustomer.customerType}
-              </strong>
-            </div>
-
-            <div className="detail-item">
-              <span>Status</span>
-              <strong>
-                {selectedCustomer.status}
-              </strong>
-            </div>
-
-            <div className="detail-item">
-              <span>Follow-up Date</span>
-              <strong>
-                {selectedCustomer.followUpDate || "Not set"}
-              </strong>
-            </div>
-
-          </div>
-
-          <div className="detail-section">
-
-            <span>Address</span>
-
-            <p>
-              {selectedCustomer.address ||
-                "No address provided"}
-            </p>
-
-          </div>
-
-          <div className="detail-section">
-
-            <span>Notes</span>
-
-            <p>
-              {selectedCustomer.notes ||
-                "No notes added"}
-            </p>
-
-          </div>
-
-        </div>
-      )}
-
-      {/* ================= ADD CUSTOMER FORM ================= */}
-
-      {showForm ? (
-
-        <div className="form-container">
-
-          <div className="form-header">
-
-            <h2>Add Customer</h2>
-
-            <button
-              type="button"
-              className="close-button"
-              onClick={() => setShowForm(false)}
-            >
-              ✕
-            </button>
-
           </div>
 
           <form onSubmit={handleSubmit}>
 
             <div className="form-grid">
 
-              {/* Customer Name */}
-
               <div className="form-field">
-
-                <label>
-                  Customer Name
-                </label>
+                <label>Customer Name</label>
 
                 <input
                   type="text"
@@ -274,16 +236,10 @@ function Customers() {
                   placeholder="Enter customer name"
                   required
                 />
-
               </div>
 
-              {/* Mobile */}
-
               <div className="form-field">
-
-                <label>
-                  Mobile
-                </label>
+                <label>Mobile</label>
 
                 <input
                   type="tel"
@@ -293,16 +249,10 @@ function Customers() {
                   placeholder="Enter mobile number"
                   required
                 />
-
               </div>
 
-              {/* Email */}
-
               <div className="form-field">
-
-                <label>
-                  Email
-                </label>
+                <label>Email</label>
 
                 <input
                   type="email"
@@ -311,16 +261,10 @@ function Customers() {
                   onChange={handleChange}
                   placeholder="Enter email"
                 />
-
               </div>
 
-              {/* Business Name */}
-
               <div className="form-field">
-
-                <label>
-                  Business Name
-                </label>
+                <label>Business Name</label>
 
                 <input
                   type="text"
@@ -329,16 +273,10 @@ function Customers() {
                   onChange={handleChange}
                   placeholder="Enter business name"
                 />
-
               </div>
 
-              {/* GST Number */}
-
               <div className="form-field">
-
-                <label>
-                  GST Number
-                </label>
+                <label>GST Number</label>
 
                 <input
                   type="text"
@@ -347,23 +285,16 @@ function Customers() {
                   onChange={handleChange}
                   placeholder="Enter GST number"
                 />
-
               </div>
 
-              {/* Customer Type */}
-
               <div className="form-field">
-
-                <label>
-                  Customer Type
-                </label>
+                <label>Customer Type</label>
 
                 <select
                   name="customerType"
                   value={formData.customerType}
                   onChange={handleChange}
                 >
-
                   <option value="Retail">
                     Retail
                   </option>
@@ -375,48 +306,33 @@ function Customers() {
                   <option value="Distributor">
                     Distributor
                   </option>
-
                 </select>
-
               </div>
 
-              {/* Status */}
-
               <div className="form-field">
-
-                <label>
-                  Status
-                </label>
+                <label>Status</label>
 
                 <select
                   name="status"
                   value={formData.status}
                   onChange={handleChange}
                 >
+                  <option value="Lead">
+                    Lead
+                  </option>
 
                   <option value="Active">
                     Active
                   </option>
 
-                  <option value="Lead">
-                    Lead
-                  </option>
-
                   <option value="Inactive">
                     Inactive
                   </option>
-
                 </select>
-
               </div>
 
-              {/* Follow-up Date */}
-
               <div className="form-field">
-
-                <label>
-                  Follow-up Date
-                </label>
+                <label>Follow-up Date</label>
 
                 <input
                   type="date"
@@ -424,18 +340,12 @@ function Customers() {
                   value={formData.followUpDate}
                   onChange={handleChange}
                 />
-
               </div>
 
             </div>
 
-            {/* Address */}
-
             <div className="form-field">
-
-              <label>
-                Address
-              </label>
+              <label>Address</label>
 
               <textarea
                 name="address"
@@ -444,35 +354,26 @@ function Customers() {
                 placeholder="Enter customer address"
                 rows="3"
               />
-
             </div>
 
-            {/* Notes */}
-
             <div className="form-field">
-
-              <label>
-                Notes
-              </label>
+              <label>Notes</label>
 
               <textarea
                 name="notes"
                 value={formData.notes}
                 onChange={handleChange}
-                placeholder="Enter follow-up notes"
+                placeholder="Enter customer notes"
                 rows="3"
               />
-
             </div>
-
-            {/* Buttons */}
 
             <div className="form-actions">
 
               <button
                 type="button"
                 className="secondary-button"
-                onClick={() => setShowForm(false)}
+                onClick={resetForm}
               >
                 Cancel
               </button>
@@ -481,23 +382,18 @@ function Customers() {
                 type="submit"
                 className="primary-button"
               >
-                Save Customer
+                {editingCustomerId
+                  ? "Update Customer"
+                  : "Save Customer"}
               </button>
 
             </div>
 
           </form>
-
         </div>
-
       ) : (
-
-        /* ================= CUSTOMER LIST ================= */
-
         <>
-
           {/* Search */}
-
           <div className="search-section">
 
             <input
@@ -511,52 +407,26 @@ function Customers() {
 
           </div>
 
-          {/* Table */}
-
+          {/* Customer Table */}
           <div className="table-container">
 
             <table>
 
               <thead>
-
                 <tr>
-
-                  <th>
-                    Name
-                  </th>
-
-                  <th>
-                    Business
-                  </th>
-
-                  <th>
-                    Mobile
-                  </th>
-
-                  <th>
-                    Type
-                  </th>
-
-                  <th>
-                    Status
-                  </th>
-
-                  <th>
-                    Follow-up
-                  </th>
-
-                  <th>
-                    Action
-                  </th>
-
+                  <th>Name</th>
+                  <th>Business</th>
+                  <th>Mobile</th>
+                  <th>Type</th>
+                  <th>Status</th>
+                  <th>Follow-up</th>
+                  <th>Action</th>
                 </tr>
-
               </thead>
 
               <tbody>
 
                 {filteredCustomers.length > 0 ? (
-
                   filteredCustomers.map((customer) => (
 
                     <tr key={customer.id}>
@@ -588,20 +458,38 @@ function Customers() {
 
                       <td>
 
-                        <button
-                          onClick={() =>
-                            setSelectedCustomer(customer)
-                          }
+                        <div
+                          style={{
+                            display: "flex",
+                            gap: "8px",
+                          }}
                         >
-                          View
-                        </button>
+
+                          {/* View */}
+                          <Link
+                            to={`/customers/${customer.id}`}
+                          >
+                            <button>
+                              View
+                            </button>
+                          </Link>
+
+                          {/* Edit */}
+                          <button
+                            onClick={() =>
+                              handleEdit(customer)
+                            }
+                          >
+                            Edit
+                          </button>
+
+                        </div>
 
                       </td>
 
                     </tr>
 
                   ))
-
                 ) : (
 
                   <tr>
@@ -625,9 +513,7 @@ function Customers() {
             </table>
 
           </div>
-
         </>
-
       )}
 
     </div>
