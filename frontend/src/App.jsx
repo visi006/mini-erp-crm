@@ -2,6 +2,8 @@ import "./App.css";
 
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
+import StockMovement from "./pages/StockMovement";
+import Products from "./pages/Products";
 import CustomerDetails from "./pages/CustomerDetails";
 import Navbar from "./components/Navbar";
 import Sidebar from "./components/Sidebar";
@@ -39,7 +41,22 @@ function App() {
     path="/customers"
     element={<Customers />}
   />
-
+  <Route
+  path="/stock-movement"
+  element={
+    <DashboardLayout>
+      <StockMovement />
+    </DashboardLayout>
+  }
+/>
+<Route
+  path="/products"
+  element={
+    <DashboardLayout>
+      <Products />
+    </DashboardLayout>
+  }
+/>
   <Route
     path="/customers/:id"
     element={<CustomerDetails />}
