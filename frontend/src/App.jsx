@@ -2,6 +2,7 @@ import "./App.css";
 
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
+import Challans from "./pages/Challans";
 import StockMovement from "./pages/StockMovement";
 import Products from "./pages/Products";
 import CustomerDetails from "./pages/CustomerDetails";
@@ -46,6 +47,14 @@ function App() {
   element={
     <DashboardLayout>
       <StockMovement />
+    </DashboardLayout>
+  }
+/>
+<Route
+  path="/challans"
+  element={
+    <DashboardLayout>
+      <Challans />
     </DashboardLayout>
   }
 />
