@@ -83,85 +83,84 @@ function Login() {
     }
   };
 
-  return (
-    <div className="login-page">
+ return (
+  <div
+    className="login-page"
+    style={{
+      minHeight: "100vh",
+      width: "100%",
+      display: "flex",
+      justifyContent: "center",
+      alignItems: "center",
+      boxSizing: "border-box",
+      padding: "20px",
+    }}
+  >
+    <div
+      className="login-card"
+      style={{
+        width: "100%",
+        maxWidth: "450px",
+        boxSizing: "border-box",
+      }}
+    >
+      <h1>Mini ERP CRM</h1>
 
-      <div className="login-card">
+      <h2>Login</h2>
 
-        <h1>Mini ERP CRM</h1>
+      <p>Sign in to your account</p>
 
-        <h2>Login</h2>
+      {error && (
+        <div
+          style={{
+            background: "#ffe5e5",
+            color: "#c62828",
+            padding: "10px",
+            borderRadius: "5px",
+            marginBottom: "15px",
+          }}
+        >
+          {error}
+        </div>
+      )}
 
-        <p>
-          Sign in to your account
-        </p>
+      <form onSubmit={handleSubmit}>
+        <div className="form-field">
+          <label>Email</label>
 
-        {error && (
-          <div
-            style={{
-              background: "#ffe5e5",
-              color: "#c62828",
-              padding: "10px",
-              borderRadius: "5px",
-              marginBottom: "15px",
-            }}
-          >
-            {error}
-          </div>
-        )}
+          <input
+            type="email"
+            name="email"
+            value={formData.email}
+            onChange={handleChange}
+            placeholder="Enter your email"
+            required
+          />
+        </div>
 
-        <form onSubmit={handleSubmit}>
+        <div className="form-field">
+          <label>Password</label>
 
-          <div className="form-field">
+          <input
+            type="password"
+            name="password"
+            value={formData.password}
+            onChange={handleChange}
+            placeholder="Enter your password"
+            required
+          />
+        </div>
 
-            <label>
-              Email
-            </label>
-
-            <input
-              type="email"
-              name="email"
-              value={formData.email}
-              onChange={handleChange}
-              placeholder="Enter your email"
-              required
-            />
-
-          </div>
-
-          <div className="form-field">
-
-            <label>
-              Password
-            </label>
-
-            <input
-              type="password"
-              name="password"
-              value={formData.password}
-              onChange={handleChange}
-              placeholder="Enter your password"
-              required
-            />
-
-          </div>
-
-          <button
-            type="submit"
-            className="primary-button"
-            disabled={loading}
-          >
-            {loading
-              ? "Logging in..."
-              : "Login"}
-          </button>
-
-        </form>
-
-      </div>
-
+        <button
+          type="submit"
+          className="primary-button"
+          disabled={loading}
+        >
+          {loading ? "Logging in..." : "Login"}
+        </button>
+      </form>
     </div>
-  );
+  </div>
+);
 }
-
 export default Login;
