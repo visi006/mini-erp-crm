@@ -1,166 +1,163 @@
-Mini ERP + CRM Operations Portal
+🚀 Mini ERP + CRM Operations Portal
 
-1. Project Overview
+<p align="center">
+  <b>A full-stack ERP + CRM solution for wholesale and distribution operations</b>
+</p>
 
-The Mini ERP + CRM Operations Portal is a full-stack web application fora small wholesale/distribution business. It covers authentication,role-based access, customer CRM, products, inventory, stock movements,sales challans, REST APIs, database management, and deploymentpreparation.
+<p align="center">
+  <img src="https://img.shields.io/badge/Frontend-React-61DAFB?style=for-the-badge&logo=react&logoColor=black" alt="React"/>
+  <img src="https://img.shields.io/badge/Backend-Node.js-339933?style=for-the-badge&logo=node.js&logoColor=white" alt="Node.js"/>
+  <img src="https://img.shields.io/badge/API-REST-02569B?style=for-the-badge" alt="REST"/>
+  <img src="https://img.shields.io/badge/Database-MySQL-4479A1?style=for-the-badge&logo=mysql&logoColor=white" alt="MySQL"/>
+  <img src="https://img.shields.io/badge/Auth-JWT-000000?style=for-the-badge" alt="JWT"/>
+  <img src="https://img.shields.io/badge/Deployment-Render-46E3B7?style=for-the-badge&logo=render&logoColor=black" alt="Render"/>
+</p>
 
-Required technology
+<p align="center">
+  <i>Customer management • Inventory • Stock tracking • Sales challans • Role-based access</i>
+</p>
 
-Frontend: React, HTML, CSS, JavaScript
+📌 Overview
 
-Backend: Node.js, Express.js
+Mini ERP + CRM Operations Portal is a full-stack web application built for a small wholesale/distribution business.
 
-Database: MySQL
+The application brings together customer CRM, product and inventory management, stock movements, sales challans, authentication, role-based access, REST APIs, and a MySQL database in one admin-style portal.
 
-API style: REST APIs
+🎯 What this project demonstrates
 
-Authentication: JWT
+🔐 JWT-based authentication
 
-Version control: Git and GitHub
+👥 Role-based access
 
-2. Objectives
+🧑‍💼 Customer CRM
 
-Implement login with role-based access.
+📦 Product & inventory management
 
-Manage customers and CRM follow-ups.
+🔄 Stock IN/OUT tracking
 
-Manage products and inventory.
+🧾 Sales challan management
 
-Record stock IN/OUT movements.
+🛡️ Stock validation and negative-stock protection
 
-Create sales challans.
+🗄️ MySQL database design
 
-Automatically generate challan numbers.
+🔌 REST API architecture
 
-Save challans as Draft, Confirmed, or Cancelled.
+🌐 Frontend + backend deployment
 
-Reduce stock when a challan is confirmed.
+🧰 Tech Stack
 
-Prevent negative stock.
+Layer
 
-Return proper errors for insufficient stock.
+Technology
 
-Store product snapshot data in challan items.
+🎨 Frontend
 
-Provide validation, error handling, search/filtering, andappropriate HTTP status codes.
+React, HTML, CSS, JavaScript
 
-Provide a clean admin-style React interface.
+⚙️ Backend
 
-3. Roles
+Node.js, Express.js
 
-The required roles are:
+🗄️ Database
 
-Admin
-
-Sales
-
-Warehouse
-
-Accounts
-
-JWT authentication is used for login and protected routes.
-
-Development test credentials
-
-Role        Email                     Password
-
-Admin       admin@minierp.com       admin123Sales       sales@minierp.com       sales123Warehouse   warehouse@minierp.com   warehouse123Accounts    accounts@minierp.com    accounts123
-
-These are development/demo credentials only.
-
-4. Architecture
-
-React Frontend
-      |
-      | HTTP / REST
-      v
-Node.js + Express
-      |
-      +-- JWT Authentication
-      +-- Role Authorization
-      +-- Controllers / Services
-      |
-      v
 MySQL
-      |
-      +-- users
-      +-- customers
-      +-- products
-      +-- stock_movements
-      +-- challans
-      +-- challan_items
 
-5. Project Structure
+🔐 Authentication
 
-mini-erp-crm/
-├── backend/
-│   ├── src/
-│   │   ├── controllers/
-│   │   │   └── authController.js
-            └── customercontroller.js
-│   │   ├── db/
-│   │   │   └── schema.sql
-            └── database.js
-│   │   ├── middleware/
-│   │   │   └── authMiddleware.js
-│   │   ├── routes/
-│   │   │   └── authRoutes.js
-            └── CustomerRoutes.js
-│   │   ├── services/
-│   │   └── server.js
-        └── test-db.js
-│   ├── .env
-│   ├── .gitignore
-│   ├── package.json
-│   └── package-lock.json
-│
-├── frontend/
-│   ├── src/
-│   │   ├── components/
-│   │   │   ├── Navbar.jsx
-│   │   │   ├── Sidebar.jsx
-│   │   │   └── ProtectedRoute.jsx
-            └── RoleProtectedRoute.jsx
-│   │   ├── pages/
-│   │   │   ├── login.jsx
-│   │   │   ├── Dashboard.jsx
-│   │   │   ├── Customers.jsx
-│   │   │   ├── CustomerDetails.jsx
-│   │   │   ├── Products.jsx
-│   │   │   ├── StockMovement.jsx
-│   │   │   └── Challans.jsx
-│   │   ├── App.jsx
-│   │   └── App.css
-│   ├── package.json
-│   └── package-lock.json
-│
-└── README.md
+JWT
 
-The structure can be extended with additional controllers, routes,services, and database modules as implementation continues.
+🔌 API
 
-6. Authentication
+REST APIs
 
-Login flow
+🌍 Frontend Hosting
 
-Login page
-   |
+Render
+
+☁️ Backend Hosting
+
+Render
+
+🛠️ Version Control
+
+Git & GitHub
+
+🏗️ System Architecture
+
+                    ┌─────────────────────┐
+                    │    React Frontend   │
+                    │   Admin-style UI    │
+                    └──────────┬──────────┘
+                               │
+                         HTTP / REST
+                               │
+                               ▼
+                    ┌─────────────────────┐
+                    │   Node.js + Express │
+                    │                     │
+                    │  JWT Authentication │
+                    │  Role Authorization │
+                    │  REST APIs          │
+                    └──────────┬──────────┘
+                               │
+                               ▼
+                    ┌─────────────────────┐
+                    │       MySQL         │
+                    │                     │
+                    │ users               │
+                    │ customers           │
+                    │ products            │
+                    │ stock_movements     │
+                    │ challans            │
+                    │ challan_items       │
+                    └─────────────────────┘
+
+✨ Core Modules
+
+🔐 1. Authentication & Roles
+
+The application supports four required roles:
+
+Role
+
+Purpose
+
+👑 Admin
+
+Full system administration
+
+💼 Sales
+
+Customer & sales operations
+
+🏭 Warehouse
+
+Inventory & stock operations
+
+💰 Accounts
+
+Accounts-related operations
+
+Login Flow
+
+Login Page
+    ↓
 POST /api/auth/login
-   |
-Validate credentials
-   |
+    ↓
+Validate Credentials
+    ↓
 Generate JWT
-   |
-Return token + user
-   |
-Store authentication state
-   |
-Dashboard
+    ↓
+Return Token + User
+    ↓
+Protected Application
 
-Protected React routes redirect unauthenticated users to /login.Backend middleware validates the JWT before protected API operations.
+Unauthenticated users are redirected to /login, while backend middleware validates JWT tokens before protected operations.
 
-7. Customer CRM
+👥 2. Customer CRM
 
-Customer fields
+Customer Information
 
 Customer name
 
@@ -170,7 +167,7 @@ Email
 
 Business name
 
-GST number (optional)
+GST number
 
 Customer type
 
@@ -182,41 +179,33 @@ Follow-up date
 
 Notes
 
-Customer types
+Customer Types
 
-Retail
+Retail • Wholesale • Distributor
 
-Wholesale
+Customer Status
 
-Distributor
-
-Customer statuses
-
-Lead
-
-Active
-
-Inactive
+Lead • Active • Inactive
 
 Features
 
-Add customer
+➕ Add customer
 
-Edit customer
+✏️ Edit customer
 
-Search customer
+🔎 Search customer
 
-View customer details
+👁️ View customer details
 
-Add follow-up notes
+📝 Add follow-up notes
 
-8. Products and Inventory
+📦 3. Product & Inventory
 
-Product fields
+Product Information
 
 Product name
 
-SKU/code
+SKU / code
 
 Category
 
@@ -224,74 +213,101 @@ Unit price
 
 Current stock
 
-Minimum stock alert quantity
+Minimum stock level
 
-Location/warehouse
+Warehouse/location
 
 Features
 
-Add product
+➕ Add product
 
-Edit product
+✏️ Edit product
 
-Search products
+🔎 Search products
 
-Display stock
+📊 View stock
 
-Display minimum stock
+⚠️ Identify low-stock products
 
-Identify low-stock products
+📍 Track warehouse/location
 
-Display location/warehouse
+Low Stock Rule
 
-Low-stock logic:
+Current Stock <= Minimum Stock
+             ↓
+        LOW STOCK
 
-current stock <= minimum stock
+🔄 4. Stock Movement
 
-9. Stock Movement
+Every inventory movement records:
 
-Each stock movement records:
+Field
+
+Description
 
 Product
 
+Product affected
+
+Quantity
+
 Quantity changed
 
-Movement type
+Type
+
+IN or OUT
 
 Reason
 
-Created by
+Reason for movement
+
+Created By
+
+User responsible
 
 Timestamp
 
-Movement types:
-
-IN
-OUT
+Date/time of movement
 
 Example:
 
-Product: Wireless Keyboard
-Quantity: 10
-Type: IN
-Reason: New stock received
-Created By: Admin
+Product      : Wireless Keyboard
+Quantity     : 10
+Movement     : IN
+Reason       : New stock received
+Created By   : Admin
 
-10. Sales Challans
+🧾 5. Sales Challans
 
-A sales user should be able to:
+The Sales Challan module supports the complete sales flow.
 
-Select a customer.
+Features
 
-Add multiple products.
+Select customer
 
-Add quantity for each product.
+Add multiple products
 
-Generate a challan number automatically.
+Enter quantities
 
-Save a challan as Draft or Confirmed.
+Automatically generate challan number
 
-Challan fields
+Save as Draft
+
+Confirm challan
+
+Cancel challan
+
+View complete challan details
+
+Calculate totals
+
+Challan Status
+
+📝 Draft
+✅ Confirmed
+❌ Cancelled
+
+Challan Information
 
 Challan number
 
@@ -301,21 +317,107 @@ Products
 
 Total quantity
 
+Subtotal
+
+Tax
+
+Discount
+
+Grand total
+
 Status
 
 Created by
 
 Created date
 
-The implementation also supports subtotal, tax, discount, grand total,and notes.
+Notes
 
-Statuses
+🧠 Important Business Logic
 
-Draft
-Confirmed
-Cancelled
+Confirmed Challan → Stock Reduction
 
-Product snapshot
+The application validates inventory before confirming a challan.
+
+Create Draft
+     │
+     ▼
+Select Customer + Products
+     │
+     ▼
+Enter Quantities
+     │
+     ▼
+Confirm Challan
+     │
+     ▼
+Check Available Stock
+     │
+     ├───────────────┐
+     │               │
+     ▼               ▼
+ Sufficient       Insufficient
+   Stock             Stock
+     │               │
+     ▼               ▼
+Reduce Stock      Return API Error
+     │               │
+     ▼               ▼
+Create OUT       No Stock Change
+Movement
+     │
+     ▼
+Save Confirmed Challan
+
+Stock Protection
+
+The system guarantees:
+
+Requested Quantity <= Available Stock
+
+Therefore:
+
+❌ Stock cannot become negative.
+
+❌ Insufficient stock cannot be confirmed.
+
+✅ Confirmed challans reduce stock.
+
+✅ OUT stock movements can be recorded.
+
+✅ Challan items preserve product snapshot information.
+
+🗄️ Database Design
+
+Database:
+
+mini_erp_crm
+
+Core Tables
+
+users
+customers
+products
+stock_movements
+challans
+challan_items
+
+Relationships
+
+Users
+ ├── Stock Movements
+ └── Challans
+
+Customers
+ └── Challans
+       └── Challan Items
+              └── Products
+
+Products
+ ├── Stock Movements
+ └── Challan Items
+
+Product Snapshot
 
 challan_items stores:
 
@@ -331,296 +433,70 @@ Unit price
 
 Amount
 
-This preserves the product information used by the historical challaninstead of depending only on the current product record.
-
-11. Challan Stock Logic
-
-Create Draft
-     |
-Select customer + products + quantities
-     |
-Confirm
-     |
-Check stock
-     |
-     +-- insufficient --> API error; no negative stock
-     |
-     v
-Reduce product stock
-     |
-Create OUT stock movement
-     |
-Save confirmed challan
-
-The backend must guarantee:
-
-requested quantity <= available stock
-
-A confirmed challan must reduce stock. Stock must never become negative.Insufficient stock must result in a proper API error.
-
-12. MySQL Database
-
-Database:
-
-mini_erp_crm
-
-Core tables:
-
-users
-customers
-products
-stock_movements
-challans
-challan_items
-
-users
-
-Stores:
-
-id
-
-name
-
-email
-
-password
-
-role
-
-created_at
-
-customers
-
-Stores:
-
-id
-
-name
-
-mobile
-
-email
-
-business_name
-
-gst_number
-
-customer_type
-
-address
-
-status
-
-follow_up_date
-
-notes
-
-created_at
-
-updated_at
-
-products
-
-Stores:
-
-id
-
-name
-
-sku
-
-category
-
-unit_price
-
-stock
-
-min_stock
-
-location
-
-created_at
-
-updated_at
-
-stock_movements
-
-Stores:
-
-id
-
-product_id
-
-movement_type
-
-quantity
-
-reason
-
-created_by
-
-created_at
-
-challans
-
-Stores:
-
-id
-
-challan_number
-
-customer_id
-
-total_quantity
-
-subtotal
-
-tax
-
-discount
-
-grand_total
-
-status
-
-notes
-
-created_by
-
-created_at
-
-updated_at
-
-challan_items
-
-Stores:
-
-id
-
-challan_id
-
-product_id
-
-product_name
-
-sku
-
-quantity
-
-unit_price
-
-amount
-
-13. Database Setup
-
-Create the database:
-
-CREATE DATABASE mini_erp_crm;
-USE mini_erp_crm;
-
-The schema is stored at:
-
-backend/src/db/schema.sql
-
-From inside MySQL:
-
-SOURCE C:/Users/user/Desktop/mini-erp-crm/backend/src/db/schema.sql;
-
-Verify:
-
-SHOW TABLES;
-
-Expected tables:
-
-users
-customers
-products
-stock_movements
-challans
-challan_items
-
-14. Environment Variables
-
-Create backend/.env:
-
-PORT=5000
-DB_HOST=localhost
-DB_PORT=3306
-DB_NAME=mini_erp_crm
-DB_USER=root
-DB_PASSWORD=YOUR_MYSQL_PASSWORD
-JWT_SECRET=YOUR_JWT_SECRET
-
-.gitignore should include:
-
-.env
-node_modules/
-
-15. Local Setup
-
-Prerequisites
-
-Node.js
-
-npm
-
-MySQL Server
-
-Git
-
-Backend
-
-cd backend
-npm install
-npm start
-
-Backend:
-
-https://mini-erp-crm-backend-x5gm.onrender.com
-
-Frontend
-
-https://mini-erp-crm-frontend-ehtf.onrender.com
-
-cd frontend
-npm install
-npm run dev
-
-
-16. Frontend Routes
-
-/login
-/dashboard
-/customers
-/customers/:id
-/products
-/inventory
-/stock-movement
-/challans
-
-Protected routes require authentication.
-
-17. Dashboard
-
-The dashboard provides:
-
-Total customers
-
-Total products
-
-Low-stock products
-
-Recent challans
-
-Low-stock product information
-
-18. REST API Design
-
-Authentication:
+This preserves historical challan information even if the current product record changes later.
+
+📁 Project Structure
+
+mini-erp-crm/
+│
+├── 📁 backend/
+│   ├── 📁 src/
+│   │   ├── 📁 controllers/
+│   │   │   ├── authController.js
+│   │   │   └── customercontroller.js
+│   │   │
+│   │   ├── 📁 db/
+│   │   │   ├── schema.sql
+│   │   │   └── database.js
+│   │   │
+│   │   ├── 📁 middleware/
+│   │   │   └── authMiddleware.js
+│   │   │
+│   │   ├── 📁 routes/
+│   │   │   ├── authRoutes.js
+│   │   │   └── CustomerRoutes.js
+│   │   │
+│   │   ├── 📁 services/
+│   │   ├── server.js
+│   │   └── test-db.js
+│   │
+│   ├── .env
+│   ├── .gitignore
+│   ├── package.json
+│   └── package-lock.json
+│
+├── 📁 frontend/
+│   ├── 📁 src/
+│   │   ├── 📁 components/
+│   │   │   ├── Navbar.jsx
+│   │   │   ├── Sidebar.jsx
+│   │   │   ├── ProtectedRoute.jsx
+│   │   │   └── RoleProtectedRoute.jsx
+│   │   │
+│   │   ├── 📁 pages/
+│   │   │   ├── login.jsx
+│   │   │   ├── Dashboard.jsx
+│   │   │   ├── Customers.jsx
+│   │   │   ├── CustomerDetails.jsx
+│   │   │   ├── Products.jsx
+│   │   │   ├── StockMovement.jsx
+│   │   │   └── Challans.jsx
+│   │   │
+│   │   ├── App.jsx
+│   │   └── App.css
+│   │
+│   ├── package.json
+│   └── package-lock.json
+│
+└── README.md
+
+🔌 REST API
+
+Authentication
 
 POST /api/auth/login
 
-Customers:
+Customers
 
 GET    /api/customers
 POST   /api/customers
@@ -628,7 +504,7 @@ GET    /api/customers/:id
 PUT    /api/customers/:id
 DELETE /api/customers/:id
 
-Products:
+Products
 
 GET    /api/products
 POST   /api/products
@@ -636,23 +512,23 @@ GET    /api/products/:id
 PUT    /api/products/:id
 DELETE /api/products/:id
 
-Stock:
+Stock Movements
 
 GET  /api/stock-movements
 POST /api/stock-movements
 
-Challans:
+Challans
 
 GET  /api/challans
 POST /api/challans
 GET  /api/challans/:id
 PUT  /api/challans/:id
 
-The final paths should match the routes actually implemented in thebackend.
+API paths should always match the final routes implemented in the backend.
 
-19. Validation and Error Handling
+🛡️ Validation & Error Handling
 
-The API should validate:
+The backend validates:
 
 Required fields
 
@@ -664,55 +540,289 @@ Existing customers
 
 Existing products
 
-Sufficient stock
+Available stock
 
-Duplicate SKUs/challan numbers
+Duplicate SKUs
 
-Typical HTTP statuses:
+Duplicate challan numbers
 
-200 OK
-201 Created
-400 Bad Request
-401 Unauthorized
-403 Forbidden
-404 Not Found
-409 Conflict
-500 Internal Server Error
+HTTP Status Codes
 
-API errors should return clear messages without exposing internalsecrets.
+Code
 
-20. Postman
+Meaning
 
-A Postman collection should be prepared with:
+200
+
+OK
+
+201
+
+Created
+
+400
+
+Bad Request
+
+401
+
+Unauthorized
+
+403
+
+Forbidden
+
+404
+
+Not Found
+
+409
+
+Conflict
+
+500
+
+Internal Server Error
+
+⚙️ Environment Variables
+
+Create:
+
+backend/.env
+
+Example:
+
+PORT=5000
+
+DB_HOST=localhost
+DB_PORT=3306
+DB_NAME=mini_erp_crm
+DB_USER=root
+DB_PASSWORD=YOUR_MYSQL_PASSWORD
+
+JWT_SECRET=YOUR_JWT_SECRET
+
+🔒 Security
+
+Never commit:
+
+.env
+node_modules/
+
+Production secrets should be configured through the hosting platform's environment-variable settings.
+
+🚀 Local Setup
+
+1. Prerequisites
+
+Install:
+
+Node.js
+
+npm
+
+MySQL Server
+
+Git
+
+2. Clone Repository
+
+git clone https://github.com/visi006/mini-erp-crm.git
+cd mini-erp-crm
+
+3. Backend
+
+cd backend
+npm install
+npm start
+
+Backend:
+
+https://mini-erp-crm-backend-x5gm.onrender.com
+
+4. Frontend
+
+cd frontend
+npm install
+npm run dev
+
+Frontend:
+
+https://mini-erp-crm-frontend-ehtf.onrender.com
+
+🗃️ MySQL Setup
+
+Create the database:
+
+CREATE DATABASE mini_erp_crm;
+USE mini_erp_crm;
+
+Run the schema:
+
+SOURCE C:/Users/user/Desktop/mini-erp-crm/backend/src/db/schema.sql;
+
+Verify:
+
+SHOW TABLES;
+
+Expected:
+
+users
+customers
+products
+stock_movements
+challans
+challan_items
+
+🌐 Deployment
+
+Current Deployment
+
+Component
+
+Platform
+
+URL
+
+🎨 Frontend
+
+Render
+
+https://mini-erp-crm-frontend-ehtf.onrender.com
+
+⚙️ Backend
+
+Render
+
+https://mini-erp-crm-backend-x5gm.onrender.com
+
+🗄️ Database
+
+Avion SQL
+
+MySQL
+
+Production Architecture
+
+                🌐 User
+                  │
+                  ▼
+        ┌───────────────────┐
+        │   Render Frontend │
+        │      React        │
+        └─────────┬─────────┘
+                  │
+                  │ HTTPS / REST
+                  ▼
+        ┌───────────────────┐
+        │   Render Backend  │
+        │ Node + Express    │
+        └─────────┬─────────┘
+                  │
+                  ▼
+        ┌───────────────────┐
+        │    Avion SQL      │
+        │      MySQL        │
+        └───────────────────┘
+
+🔑 Test Credentials
+
+⚠️ These credentials are for development/demo testing only.
+
+Role
+
+Email
+
+Password
+
+👑 Admin
+
+admin@minierp.com
+
+admin123
+
+💼 Sales
+
+sales@minierp.com
+
+sales123
+
+🏭 Warehouse
+
+warehouse@minierp.com
+
+warehouse123
+
+💰 Accounts
+
+accounts@minierp.com
+
+accounts123
+
+🧪 Postman
+
+Recommended collection:
 
 Mini ERP CRM API
-├── Authentication
+│
+├── 🔐 Authentication
 │   └── Login
-├── Customers
+│
+├── 👥 Customers
 │   ├── Get Customers
 │   ├── Create Customer
 │   ├── Get Customer
 │   ├── Update Customer
 │   └── Delete Customer
-├── Products
+│
+├── 📦 Products
 │   ├── Get Products
 │   ├── Create Product
 │   ├── Get Product
 │   └── Update Product
-├── Stock Movements
+│
+├── 🔄 Stock Movements
 │   ├── Get Movements
 │   └── Create Movement
-└── Challans
+│
+└── 🧾 Challans
     ├── Get Challans
     ├── Create Challan
     ├── Get Challan
     └── Update Challan
 
-Protected requests use:
+Protected requests:
 
 Authorization: Bearer <JWT_TOKEN>
 
-21. GitHub Commits
+🛣️ Frontend Routes
+
+/login
+/dashboard
+/customers
+/customers/:id
+/products
+/inventory
+/stock-movement
+/challans
+
+📊 Dashboard
+
+The dashboard provides an operational overview including:
+
+👥 Total customers
+
+📦 Total products
+
+⚠️ Low-stock products
+
+🧾 Recent challans
+
+📉 Low-stock information
+
+📝 GitHub Commit History
+
+The project has been developed incrementally with feature-focused commits:
 
 Configure cloud database SSL
 Complete customer CRUD APIs
@@ -727,89 +837,45 @@ Create dashboard page
 Add login page and application navigation
 Initial React frontend setup
 
-22. Deployment
+This demonstrates incremental development rather than a single bulk commit.
 
-Frontend & Backend has been deployed in render.
-Database Mysql is deployed in avion sql.
+🎥 Demo Flow
 
-Production architecture:
+The recommended project demonstration should cover:
 
-React Frontend
-      |
-      v
-Hosted Node/Express API
-      |
-      v
-Hosted SQL Database
-
-23. Production Environment Variables
-
-Configure these in the hosting provider:
-
-PORT=5000
-DB_HOST=<HOST>
-DB_PORT=<PORT>
-DB_NAME=<DATABASE_NAME>
-DB_USER=<DATABASE_USER>
-DB_PASSWORD=<DATABASE_PASSWORD>
-JWT_SECRET=<STRONG_SECRET>
-
-
-
-27. Known Limitations
-
+1. 🔐 Login
+       ↓
+2. 📊 Dashboard
+       ↓
+3. 👥 Customer Management
+       ↓
+4. 📦 Product Management
+       ↓
+5. 🔄 Stock IN / OUT
+       ↓
+6. 🧾 Create Challan
+       ↓
+7. 📋 Add Multiple Products
+       ↓
+8. ✅ Confirm Challan
+       ↓
+9. 📉 Verify Stock Reduction
+       ↓
+10. 👁️ View Challan Details
+       ↓
+11. 🛡️ Test Insufficient Stock
+       ↓
+12. 🔐 Verify Role-Based Access
 
 
-Full database-backed authentication
 
-Complete role-specific permissions
+👨‍💻 Development
 
-Customer REST APIs
+Built as a practical full-stack ERP/CRM case-study project demonstrating:
 
-Product REST APIs
+React + Node.js + Express + MySQL + JWT + REST APIs + Git/GitHub + Cloud Deployment
 
-Stock movement APIs
-
-Challan transaction/business logic
-
-Postman collection
-
-Production database
-
-Frontend deployment
-
-Backend deployment
-
-Demo recording
-
-Only mark a feature complete after testing it end-to-end.
-
-28. Conclusion
-
-The project demonstrates a practical full-stack ERP/CRM workflow:
-
-Authentication
-    ↓
-Role-Based Access
-    ↓
-Customer CRM
-    ↓
-Products
-    ↓
-Inventory
-    ↓
-Stock Movements
-    ↓
-Sales Challans
-    ↓
-Stock Validation
-    ↓
-MySQL Database
-    ↓
-REST APIs
-    ↓
-React UI
-    ↓
-Deployment
-
-The goal is to demonstrate full-stack development, database design, APIdevelopment, authentication, business logic, validation, frontendintegration, and deployment readiness rather than building a largeenterprise ERP.
+<p align="center">
+  <b>🚀 Mini ERP + CRM Operations Portal</b><br/>
+  <sub>Built with React • Node.js • Express • MySQL</sub>
+</p>
